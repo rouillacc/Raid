@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Raid District Cognac</title>
+  <style>
+    :root{--bg:#f3f7fb;--card:#fff;--ink:#17324d;--muted:#5f748a;--line:#dbe6f1;--brand:#2563eb;--brand2:#06b6d4;--shadow:0 10px 30px rgba(23,50,77,.08);--radius:18px}
+    *{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(180deg,var(--bg),#e9eef6);color:var(--ink)}
+    .app{max-width:1360px;margin:0 auto;padding:14px 14px 92px}
+    .topbar,.card,.panel{background:var(--card);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow)}
+    .topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;margin-bottom:14px}.brand{display:flex;align-items:center;gap:12px}.logo{width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,var(--brand),var(--brand2));display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px}.title{font-size:20px;font-weight:900;line-height:1}.sub{font-size:11px;text-transform:uppercase;color:var(--muted);letter-spacing:.08em}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{padding:8px 12px;border-radius:999px;background:#eef4ff;border:1px solid var(--line);font-size:12px;font-weight:800;color:#35506a}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}.stat{padding:14px 16px}.lbl{font-size:12px;color:var(--muted)}.val{font-size:28px;font-weight:900;margin-top:4px}
+    .tabs,.bottom{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}.tabs::-webkit-scrollbar,.bottom::-webkit-scrollbar{display:none}.tabs{margin-bottom:14px}.tab,.nav{border:1px solid var(--line);background:rgba(255,255,255,.9);color:#35506a;border-radius:999px;padding:10px 14px;font-weight:800;cursor:pointer;white-space:nowrap}.tab.active,.nav.active{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;border-color:transparent}
+    .panel{display:none}.panel.active{display:block}.layout{display:grid;grid-template-columns:minmax(320px,380px) minmax(0,1fr);gap:14px;align-items:start}.sec{padding:16px}.title2{font-size:17px;font-weight:900;margin-bottom:12px}.field{margin-bottom:12px}.field label{display:block;font-size:13px;font-weight:800;margin-bottom:7px;color:#27435f}input,select{width:100%;padding:12px 14px;border:1px solid #d6e2ef;border-radius:14px;font-size:15px;background:#fff;color:var(--ink)}.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}button{border:0;border-radius:14px;padding:12px 16px;font-weight:900;cursor:pointer}.primary{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff}.soft{background:#eef4ff;color:#24507d;border:1px solid var(--line)}.hint{margin-top:10px;padding:12px 14px;border-radius:16px;background:#f4f8fc;border:1px solid var(--line);color:#4b667e;font-size:13px}
+    .table-wrap{overflow:auto;border:1px solid #e6edf5;border-radius:16px;background:#fff}table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:10px 9px;border-bottom:1px solid #edf3f8;text-align:left}th{background:#f5f8fc;color:#37546f;font-size:12px}.empty td{color:#7b93a9;font-style:italic;text-align:center;padding:18px}.badge{display:inline-block;padding:6px 10px;border-radius:999px;font-weight:900;font-size:12px}.b-num{background:#edf4ff;color:#24507d}.b-cat{background:#fff0de;color:#a35a00}.b-col-rouillac{background:#e8fff0;color:#137a3a}.b-col-jarnac{background:#ffe1e1;color:#a40015}.b-col-elisee{background:#ffe0f3;color:#7a0052}.b-col-claude{background:#e7f1ff;color:#1b5fbe}.b-col-felix{background:#fff1d9;color:#d46a00}.b-col-segonzac{background:#fff;color:#5c6b7a;border:1px solid #d3d9e2}.actions{display:flex;gap:6px}.mini{padding:8px 10px;border-radius:10px;font-size:12px}.mini-c{background:#e8fbff;color:#066b92}.mini-r{background:#ffe8ec;color:#bb2944}.rank-card{background:#fff;border:1px solid #e6edf5;border-radius:20px;overflow:hidden;margin-bottom:12px}.rank-head{padding:12px 14px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(90deg,#f6fbff,#fff7ec);border-bottom:1px solid #e6edf5}.rank-pill{width:32px;height:32px;border-radius:999px;display:flex;align-items:center;justify-content:center;font-weight:900;background:#eaf2ff;color:#24507d}.bottom{position:fixed;bottom:10px;left:0;right:0;justify-content:center;pointer-events:none}.bottom .bar{pointer-events:auto;display:flex;gap:8px;background:rgba(255,255,255,.9);border:1px solid var(--line);padding:9px;border-radius:20px;box-shadow:var(--shadow);width:min(96vw,680px)}.nav{flex:1;text-align:center}
+    @media(max-width:1080px){.layout{grid-template-columns:1fr}.stats{grid-template-columns:1fr}.topbar{flex-direction:column;align-items:flex-start}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="brand"><div class="logo">🏁</div><div><div class="sub">Raid District de Cognac</div><div class="title">Classement général</div></div></div>
+    <div class="chips"><span class="chip">Biathlon</span><span class="chip">CO</span><span class="chip">Canoë</span><span class="chip">Fléchettes</span></div>
+  </div>
+
+  <div class="stats">
+    <div class="card stat"><div class="lbl">Équipes inscrites</div><div class="val" id="statTeams">0</div></div>
+    <div class="card stat"><div class="lbl">Collèges</div><div class="val" id="statSchools">0</div></div>
+    <div class="card stat"><div class="lbl">Catégories</div><div class="val" id="statCats">0</div></div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="inscriptions">Inscriptions</button>
+    <button class="tab" data-tab="biathlon">Biathlon</button>
+    <button class="tab" data-tab="co">CO</button>
+    <button class="tab" data-tab="canoe">Canoë</button>
+    <button class="tab" data-tab="flechettes">Fléchettes</button>
+    <button class="tab" data-tab="general">Général</button>
+  </div>
+
+  <div class="panel active" id="panel-inscriptions">
+    <div class="layout">
+      <section class="card sec">
+        <div class="title2">Inscrire une équipe</div>
+        <div class="field"><label>Collège</label><select id="inscrCollege"><option>Rouillac</option><option>Segonzac</option><option>Jarnac</option><option>Claude Boucher</option><option>Félix Gaillard</option><option>Élisée Mousnier</option></select></div>
+        <div class="field"><label>Catégorie</label><select id="inscrCategorie"><option>Benj Garcons</option><option>Benj Filles</option><option>Benj Mixtes</option><option>Min Garcons</option><option>Min Filles</option><option>Min Mixtes</option></select></div>
+        <div class="field"><label>Numéro</label><input id="inscrNum" type="text" placeholder="Ex 12"></div>
+        <div class="field"><label>Prénoms</label><input id="inscrPrenoms" type="text" placeholder="Ex Léa, Tom, Jules"></div>
+        <div class="btns"><button class="primary" id="btnSaveInscr">Enregistrer</button><button class="soft" id="btnCancelInscr" style="display:none">Annuler</button></div>
+      </section>
+      <section class="card sec"><div class="title2">Équipes inscrites</div><div class="table-wrap"><table><thead><tr><th>N°</th><th>Collège</th><th>Catégorie</th><th>Élèves</th><th>Actions</th></tr></thead><tbody id="inscrTableBody"></tbody></table></div></section>
+    </div>
+  </div>
+
+  <div class="panel" id="panel-biathlon"><div class="layout"><section class="card sec"><div class="title2">Biathlon</div><div class="field"><label>Catégorie</label><select id="biathlonCategorie"></select></div><div class="field"><label>Équipe</label><select id="biathlonEquipe"></select></div><div class="field"><label>Temps final</label><input id="biathlonTemps" type="text" placeholder="Ex 18:42"></div><div class="btns"><button class="primary" id="btnSaveBiathlon">Enregistrer</button></div></section><section class="card sec"><div class="title2">Résultats Biathlon</div><div class="table-wrap"><table><thead><tr><th>N°</th><th>Collège</th><th>Catégorie</th><th>Temps</th><th>Action</th></tr></thead><tbody id="biathlonTableBody"></tbody></table></div></section></div></div>
+  <div class="panel" id="panel-co"><div class="layout"><section class="card sec"><div class="title2">Course d'orientation</div><div class="field"><label>Catégorie</label><select id="coCategorie"></select></div><div class="field"><label>Équipe</label><select id="coEquipe"></select></div><div class="field"><label>Points obtenus</label><input id="coPoints" type="number" min="0" step="1" placeholder="Ex 450"></div><div class="btns"><button class="primary" id="btnSaveCo">Enregistrer</button></div></section><section class="card sec"><div class="title2">Résultats CO</div><div class="table-wrap"><table><thead><tr><th>N°</th><th>Collège</th><th>Catégorie</th><th>Points</th><th>Action</th></tr></thead><tbody id="coTableBody"></tbody></table></div></section></div></div>
+  <div class="panel" id="panel-canoe"><div class="layout"><section class="card sec"><div class="title2">Canoë</div><div class="field"><label>Catégorie</label><select id="canoeCategorie"></select></div><div class="field"><label>Équipe</label><select id="canoeEquipe"></select></div><div class="field"><label>Temps final</label><input id="canoeTemps" type="text" placeholder="Ex 08:24"></div><div class="btns"><button class="primary" id="btnSaveCanoe">Enregistrer</button></div></section><section class="card sec"><div class="title2">Résultats Canoë</div><div class="table-wrap"><table><thead><tr><th>N°</th><th>Collège</th><th>Catégorie</th><th>Temps</th><th>Action</th></tr></thead><tbody id="canoeTableBody"></tbody></table></div></section></div></div>
+  <div class="panel" id="panel-flechettes"><div class="layout"><section class="card sec"><div class="title2">CO Fléchettes</div><div class="field"><label>Catégorie</label><select id="flechettesCategorie"></select></div><div class="field"><label>Équipe</label><select id="flechettesEquipe"></select></div><div class="field"><label>Points obtenus</label><input id="flechettesPoints" type="number" min="0" step="1" placeholder="Ex 320"></div><div class="btns"><button class="primary" id="btnSaveFlechettes">Enregistrer</button></div></section><section class="card sec"><div class="title2">Résultats CO Fléchettes</div><div class="table-wrap"><table><thead><tr><th>N°</th><th>Collège</th><th>Catégorie</th><th>Points</th><th>Action</th></tr></thead><tbody id="flechettesTableBody"></tbody></table></div></section></div></div>
+  <div class="panel" id="panel-general"><section class="card sec"><div class="title2">Classement général du Raid</div><div id="generalRanking"></div></section></div>
+</div>
+<div class="bottom"><div class="bar"><button class="nav active" data-tab="inscriptions">Inscriptions</button><button class="nav" data-tab="biathlon">Biathlon</button><button class="nav" data-tab="co">CO</button><button class="nav" data-tab="canoe">Canoë</button><button class="nav" data-tab="flechettes">Fléchettes</button><button class="nav" data-tab="general">Général</button></div></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+import { getFirestore, collection, addDoc, onSnapshot, deleteDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+
+const firebaseConfig = { apiKey: "AIzaSyAjHUQZWn9r-mkJXqlhuuoes5Wom0wFP6A", authDomain: "raid-cognac.firebaseapp.com", projectId: "raid-cognac", storageBucket: "raid-cognac.firebasestorage.app", messagingSenderId: "436747357929", appId: "1:436747357929:web:c0db281c5f2714c9f82a78" };
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const teamsRef = collection(db, "teams");
+const acts = ["biathlon","co","canoe","flechettes"];
+const cats = ["Benj Garcons","Benj Filles","Benj Mixtes","Min Garcons","Min Filles","Min Mixtes"];
+const cfg = { biathlon:{type:"time", field:"biathlonTemps", table:"biathlonTableBody", col:"Temps"}, co:{type:"points", field:"coPoints", table:"coTableBody", col:"Points"}, canoe:{type:"time", field:"canoeTemps", table:"canoeTableBody", col:"Temps"}, flechettes:{type:"points", field:"flechettesPoints", table:"flechettesTableBody", col:"Points"} };
+let teams = [], results = {biathlon:{},co:{},canoe:{},flechettes:{}};
+const $ = id => document.getElementById(id);
+const byNum = (a,b) => (Number(a.num)||0) - (Number(b.num)||0) || String(a.num).localeCompare(String(b.num),"fr");
+const colClass = c => c==="Rouillac"?"b-col-rouillac":c==="Jarnac"?"b-col-jarnac":(c==="Élisée Mousnier"||c==="Elisée Mousnier")?"b-col-elisee":c==="Claude Boucher"?"b-col-claude":c==="Félix Gaillard"||c==="Felix Gaillard"?"b-col-felix":c==="Segonzac"?"b-col-segonzac":"";
+const parseTime = v => { if(v===undefined||v===null||v==="") return null; const p=String(v).trim().split(":").map(Number); if(p.some(n=>isNaN(n))) return null; if(p.length===2){const [m,s]=p; if(s>=60) return null; return m*60+s;} if(p.length===3){const [h,m,s]=p; if(m>=60||s>=60) return null; return h*3600+m*60+s;} return null; };
+const fmtTime = v => { const t=parseTime(v); if(t===null) return v; const h=Math.floor(t/3600), m=Math.floor((t%3600)/60), s=t%60, pad=n=>String(n).padStart(2,"0"); return h?`${h}:${pad(m)}:${pad(s)}`:`${m}:${pad(s)}`; };
+function uid(){ return "t"+Date.now()+Math.random().toString(16).slice(2); }
+function saveTeam(team){ return team.id ? setDoc(doc(db,"teams",team.id), team) : addDoc(teamsRef, team); }
+function refreshStats(){ $("statTeams").textContent = teams.length; $("statSchools").textContent = new Set(teams.map(t=>t.college)).size; $("statCats").textContent = new Set(teams.map(t=>t.categorie)).size; }
+function refreshSelect(act){ const sel=$(act+"Equipe"), cat=$(act+"Categorie").value, cur=sel.value; const list=teams.filter(t=>!cat||t.categorie===cat).sort(byNum); sel.innerHTML = '<option value="">-- Choisir une équipe --</option>' + list.map(t=>`<option value="${t.id}">${t.num} · ${t.college} · ${t.categorie}</option>`).join(""); if(list.some(t=>t.id===cur)) sel.value=cur; }
+function renderInscr(){ $("inscrTableBody").innerHTML = teams.slice().sort(byNum).map(t=>`<tr><td><span class="badge b-num">${t.num}</span></td><td><span class="badge ${colClass(t.college)}">${t.college}</span></td><td><span class="badge b-cat">${t.categorie}</span></td><td>${t.prenoms||"-"}</td><td><div class="actions"><button class="mini mini-c" data-edit-team="${t.id}">Modifier</button><button class="mini mini-r" data-del-team="${t.id}">Supprimer</button></div></td></tr>`).join("") || '<tr class="empty"><td colspan="5">Aucune équipe inscrite.</td></tr>'; }
+function renderAct(act){ const tb=$(cfg[act].table); const rows = Object.entries(results[act]).map(([id,v])=>{ const t=teams.find(x=>x.id===id); return t?{t,v,id}:null; }).filter(Boolean).sort((a,b)=> cfg[act].type==="time" ? parseTime(a.v)-parseTime(b.v) : b.v-a.v); tb.innerHTML = rows.map(r=>`<tr><td><span class="badge b-num">${r.t.num}</span></td><td><span class="badge ${colClass(r.t.college)}">${r.t.college}</span></td><td><span class="badge b-cat">${r.t.categorie}</span></td><td>${r.v}</td><td><button class="mini mini-r" data-del-res="${act}" data-id="${r.id}">Supprimer</button></td></tr>`).join("") || '<tr class="empty"><td colspan="5">Aucun résultat saisi.</td></tr>'; }
+function renderGeneral(){ let html=''; cats.forEach(cat=>{ const catTeams=teams.filter(t=>t.categorie===cat); if(!catTeams.length) return; const ranks={}; catTeams.forEach(t=>ranks[t.id]={}); acts.forEach(act=>{ const list=catTeams.filter(t=>results[act][t.id]!==undefined).map(t=>({t,v:results[act][t.id]})).sort((a,b)=> cfg[act].type==="time" ? parseTime(a.v)-parseTime(b.v) : b.v-a.v); list.forEach((r,i)=>ranks[r.t.id][act]=i+1); }); const ranked=catTeams.map(t=>{ const arr=acts.map(a=>ranks[t.id][a]||null); const filled=arr.filter(Boolean).length; const score=arr.reduce((s,v)=>s+(v||0),0); return {t,arr,filled,score}; }).sort((a,b)=> b.filled-a.filled || a.score-b.score || byNum(a.t,b.t)); html += `<div class="rank-card"><div class="rank-head"><strong>${cat}</strong><span class="rank-pill">${ranked.length}</span></div><div class="table-wrap"><table><thead><tr><th>Rang</th><th>N°</th><th>Collège</th><th>Biathlon</th><th>CO</th><th>Canoë</th><th>Fléchettes</th><th>Total</th></tr></thead><tbody>` + ranked.map((r,i)=>`<tr><td><span class="rank-pill">${i+1}</span></td><td><strong>${r.t.num}</strong></td><td><span class="badge ${colClass(r.t.college)}">${r.t.college}</span></td><td style="text-align:center">${r.arr[0]||"—"}</td><td style="text-align:center">${r.arr[1]||"—"}</td><td style="text-align:center">${r.arr[2]||"—"}</td><td style="text-align:center">${r.arr[3]||"—"}</td><td style="text-align:center;font-weight:900">${r.filled ? r.score : "—"}</td></tr>`).join("") + `</tbody></table></div></div>`; }); $("generalRanking").innerHTML = html || '<div class="hint">Aucune équipe inscrite.</div>'; }
+function renderAll(){ refreshStats(); renderInscr(); acts.forEach(a=>{ refreshSelect(a); renderAct(a); }); renderGeneral(); }
+window.updateActivityTeamOptions = act => { refreshSelect(act); };
+window.autoFillActivity = act => {};
+window.saveActivityResult = async act => { const sel=$(act+"Equipe"); const input=$(cfg[act].field); if(!sel.value){ alert("Merci de choisir une équipe."); return; } const raw=input.value.trim(); let val; if(cfg[act].type==="time"){ if(parseTime(raw)===null){ alert("Temps invalide"); return; } val=fmtTime(raw); } else { if(raw===""||isNaN(raw)||Number(raw)<0){ alert("Points invalides"); return; } val=Number(raw); } results[act][sel.value]=val; input.value=''; $(act+"Categorie").selectedIndex=0; refreshSelect(act); sel.selectedIndex=0; renderAct(act); renderGeneral(); };
+window.deleteActivityResult = async (act,id) => { delete results[act][id]; renderAct(act); renderGeneral(); };
+window.switchTab = tab => { document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active')); document.getElementById('panel-'+tab).classList.add('active'); document.querySelectorAll('.tab,.nav').forEach(b=>b.classList.toggle('active', b.dataset.tab===tab)); if(tab!=="inscriptions") acts.forEach(refreshSelect); if(tab==="general") renderGeneral(); };
+window.saveInscription = async () => { const college=$("inscrCollege").value; const categorie=$("inscrCategorie").value; const num=$("inscrNum").value.trim(); const prenoms=$("inscrPrenoms").value.trim(); if(!num){ alert("Merci de saisir le numéro d’équipe."); return; } if(teams.some(t=>t.num===num)){ alert("Ce numéro est déjà utilisé."); return; } await saveTeam({ id: uid(), college, categorie, num, prenoms, createdAt: Date.now() }); $("inscrNum").value=''; $("inscrPrenoms").value=''; $("inscrCollege").selectedIndex=0; $("inscrCategorie").selectedIndex=0; };
+window.cancelInscrEdit = () => { $("inscrNum").value=''; $("inscrPrenoms").value=''; };
+window.editInscr = id => { const t=teams.find(x=>x.id===id); if(!t) return; $("inscrCollege").value=t.college; $("inscrCategorie").value=t.categorie; $("inscrNum").value=t.num; $("inscrPrenoms").value=t.prenoms; window.scrollTo({top:0,behavior:'smooth'}); };
+window.deleteInscr = async id => { await deleteDoc(doc(db,"teams",id)); delete results.biathlon[id]; delete results.co[id]; delete results.canoe[id]; delete results.flechettes[id]; renderGeneral(); };
+document.addEventListener('click', async e => { const b=e.target.closest('button'); if(!b) return; if(b.id==='btnSaveInscr') return saveInscription(); if(b.id==='btnCancelInscr') return cancelInscrEdit(); if(b.id==='btnSaveBiathlon') return saveActivityResult('biathlon'); if(b.id==='btnSaveCo') return saveActivityResult('co'); if(b.id==='btnSaveCanoe') return saveActivityResult('canoe'); if(b.id==='btnSaveFlechettes') return saveActivityResult('flechettes'); if(b.dataset.editTeam) return editInscr(b.dataset.editTeam); if(b.dataset.delTeam) return deleteInscr(b.dataset.delTeam); if(b.dataset.delRes) return deleteActivityResult(b.dataset.delRes,b.dataset.id); if(b.dataset.tab) return switchTab(b.dataset.tab); });
+acts.forEach(a=>$(a+"Categorie").addEventListener('change',()=>refreshSelect(a)));
+onSnapshot(teamsRef, snap => { teams = snap.docs.map(d => ({ id:d.id, ...d.data() })); renderAll(); });
+</script>
+</body>
+</html>
