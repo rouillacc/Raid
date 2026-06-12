@@ -231,4 +231,100 @@
   renderAll();
 })();
 </script>
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+  import {
+    getFirestore,
+    collection,
+    addDoc,
+    onSnapshot,
+    deleteDoc,
+    doc,
+    updateDoc
+  } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAjHUQZWn9r-mkJXqlhuuoes5Wom0wFP6A",
+    authDomain: "raid-cognac.firebaseapp.com",
+    projectId: "raid-cognac",
+    storageBucket: "raid-cognac.firebasestorage.app",
+    messagingSenderId: "436747357929",
+    appId: "1:436747357929:web:c0db281c5f2714c9f82a78"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const teamsRef = collection(db, "teams");
+
+  const $ = (id) => document.getElementById(id);
+
+  const teamTableBody = $("inscrTableBody");
+
+  function renderTeams(snapshot) {
+    const rows = [];
+    snapshot.forEach((d) => {
+      const t = d.data();
+      rows.push(`
+        <tr>
+          <td>${t.num || ""}</td>
+          <td>${t.college || ""}</td>
+          <td>${t.categorie || ""}</td>
+          <td>${t.prenoms || ""}</td>
+          <td>
+            <button class="mini mini-c" data-edit="${d.id}">Modifier</button>
+            <button class="mini mini-r" data-del="${d.id}">Supprimer</button>
+          </td>
+        </tr>
+      `);
+    });
+
+    teamTableBody.innerHTML = rows.length
+      ? rows.join("")
+      : `<tr class="empty-row"><td colspan="5">Aucune équipe inscrite.</td></tr>`;
+  }
+
+  onSnapshot(teamsRef, (snapshot) => {
+    renderTeams(snapshot);
+  });
+
+  async function saveTeam() {
+    const college = $("inscrCollege").value;
+    const categorie = $("inscrCategorie").value;
+    const num = $("inscrNum").value.trim();
+    const prenoms = $("inscrPrenoms").value.trim();
+
+    if (!num) {
+      alert("Merci de saisir le numéro d'équipe.");
+      return;
+    }
+
+    await addDoc(teamsRef, {
+      college,
+      categorie,
+      num,
+      prenoms,
+      createdAt: Date.now()
+    });
+
+    $("inscrNum").value = "";
+    $("inscrPrenoms").value = "";
+    $("inscrCollege").selectedIndex = 0;
+    $("inscrCategorie").selectedIndex = 0;
+  }
+
+  $("btnSaveInscr").addEventListener("click", saveTeam);
+
+  teamTableBody.addEventListener("click", async (e) => {
+    const delId = e.target?.dataset?.del;
+    const editId = e.target?.dataset?.edit;
+
+    if (delId) {
+      if (!confirm("Supprimer cette équipe ?")) return;
+      await deleteDoc(doc(db, "teams", delId));
+    }
+
+    if (editId) {
+      alert("Le bouton modifier est prêt, on peut brancher l’édition ensuite.");
+    }
+ 
 </body></html>
